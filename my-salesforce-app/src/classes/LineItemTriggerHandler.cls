@@ -1,6 +1,6 @@
 public with sharing class LineItemTriggerHandler {
 		
-	/* Public methods62
+	/* Public methods623
 	========================== */
 	
 	/** This (!) handler methods is to be used on all relevant triggers events.
