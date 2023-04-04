@@ -20,6 +20,27 @@ public with sharing class PobControllerExt {
 	
 	/** Extension constructor method */
 	public PobControllerExt(ApexPages.StandardController stdController) {
+		
+		Case c = new Case();
+		insert c;
+
+		EmailMessage e = new EmailMessage();
+		e.parentid = c.id;
+		// Set to draft status.
+		// This status is required 
+		// for sendEmailMessage().
+		e.Status = '5'; 
+		e.TextBody = 
+		  'Sample email message.';
+		e.Subject = 'Apex sample';
+		e.ToAddress = 'customer@email.com';
+		insert e;
+
+		List<Messaging.SendEmailResult> 
+		  results = 
+		  Messaging.sendEmailMessage(new ID[] 
+		    { e.id });
+		
 		List<Line_Item__c> existingLineItems = null;
 		stdCtrl = stdController;
 		po = (Order__c) stdCtrl.getRecord();
