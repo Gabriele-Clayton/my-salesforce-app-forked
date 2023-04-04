@@ -21,7 +21,7 @@ public with sharing class PobControllerExt {
 	/** Extension constructor method */
 	public PobControllerExt(ApexPages.StandardController stdController) {
 		
-		System.debug("debug");
+		System.debug('debug');
 
 		
 		Case c = new Case();
