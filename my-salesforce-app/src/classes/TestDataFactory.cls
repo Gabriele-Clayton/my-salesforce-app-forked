@@ -13,11 +13,13 @@ public class TestDataFactory {
 	public static final String TEST_USER_FIRSTNAME = 'John';
 	public static final String TEST_USER_LASTNAME = 'Doe';
 	
-	public static Account createAccount() {
+	/* Create a new account. */
+ public static Account createAccount() {
 		return createAccounts(1).get(0);
 	}
 	
-	public static List<Account> createAccounts(Integer howMany) {
+	/* Create a list of accounts. */
+ public static List<Account> createAccounts(Integer howMany) {
 		howMany = (howMany!=null && howMany!=0) ? Math.abs(howMany) : 1;
 		List<Account> accounts = new List<Account>();
 		for (Integer i=0; i<howMany; i++) {
@@ -27,11 +29,13 @@ public class TestDataFactory {
 		return accounts;	
 	}
 	
-	public static Order__c createOrder(Account a) {
+	/* Create an order for an account. */
+ public static Order__c createOrder(Account a) {
 		return createOrders(new List<Account> {a}).get(0);
 	}
 
-	public static Order__c createOrder(Decimal budget) {
+	/* create an order object with a specific budget */
+ public static Order__c createOrder(Decimal budget) {
 		Order__c o = new Order__c();
 		o.Budget__c = budget;
 		o.Name = 'A test order';
@@ -40,7 +44,8 @@ public class TestDataFactory {
 	}
 	
 	
-	public static List<Order__c> createOrders(List<Account> accounts) {
+	/* create a list of orders for the given list of accounts */
+ public static List<Order__c> createOrders(List<Account> accounts) {
 		List<Order__c> orders = new List<Order__c>();
 		for (Account a : accounts) {
 			Order__c o = new Order__c();
@@ -52,15 +57,18 @@ public class TestDataFactory {
 		return orders;
 	}
 	
-	public static Line_Item__c createLineItem(Order__c anOrder, Lot__c lot, Integer units) {
+	/* Create a line item. */
+ public static Line_Item__c createLineItem(Order__c anOrder, Lot__c lot, Integer units) {
 		return createLineItems(new List<Order__c>{anOrder}, new List<Lot__c>{lot}, units).get(0);
 	}
 	
-	public static Line_Item__c createLineItem(Lot__c lot, Integer units) {
+	/* Create a line item. */
+ public static Line_Item__c createLineItem(Lot__c lot, Integer units) {
 		return createLineItems(new List<Lot__c>{lot}, units).get(0);
 	}
 	
-	public static List<Line_Item__c> createLineItems(List<Order__c> orders, List<Lot__c> lots, Integer units) {
+	/* Method createLineItems. */
+ public static List<Line_Item__c> createLineItems(List<Order__c> orders, List<Lot__c> lots, Integer units) {
 		List<Line_Item__c> lineItems = new List<Line_Item__c>();
 		for (Order__c o : orders) {
 			for (Lot__c l : lots) {
@@ -75,7 +83,8 @@ public class TestDataFactory {
 		return lineItems;
 	}
 	
-	public static List<Line_Item__c> createLineItems(List<Lot__c> lots, Integer units) {
+	/* create line items. */
+ public static List<Line_Item__c> createLineItems(List<Lot__c> lots, Integer units) {
 		List<Line_Item__c> lineItems = new List<Line_Item__c>();
 		for (Lot__c l : lots) {
 			Line_Item__c lineItem = new Line_Item__c(
@@ -87,7 +96,8 @@ public class TestDataFactory {
 		return lineItems;
 	}
 	
-	public static List<Line_Item__c> createLineItems(Map<Id, List<Id>> orderMap, Integer howMany) {
+	/* createLineItems method. */
+ public static List<Line_Item__c> createLineItems(Map<Id, List<Id>> orderMap, Integer howMany) {
 		howMany = (howMany!=null && howMany!=0) ? Math.abs(howMany) : 1;
 		List<Line_Item__c> lineItems = new List<Line_Item__c>();
 		for (Id orderId : orderMap.keySet()) {
@@ -105,7 +115,8 @@ public class TestDataFactory {
 		return lineItems;
 	}
 	
-	public static Line_Item__c createLineItem(Id orderId, Id lotId, Integer units) {
+	/* Method to create the Line_Item object. */
+ public static Line_Item__c createLineItem(Id orderId, Id lotId, Integer units) {
 		Line_Item__c li = new Line_Item__c(
 			Order__c = orderId,
 			Lot__c = lotId,
@@ -114,7 +125,8 @@ public class TestDataFactory {
 		return li; 
 	}
 	
-	public static Line_Item__c createLineItem(Id lotId, Integer units) {
+	/* Method to create the Line_Item object. */
+ public static Line_Item__c createLineItem(Id lotId, Integer units) {
 		Line_Item__c li = new Line_Item__c(
 			Lot__c = lotId,
 			Units__c = units
@@ -122,13 +134,15 @@ public class TestDataFactory {
 		return li; 
 	}
 	
-	public static Lot__c createLot(String productCategory, Decimal unitPrice) {
+	/* Create a new lot with the given product category and unit price. */
+ public static Lot__c createLot(String productCategory, Decimal unitPrice) {
 		Lot__c myLot = createLots(productCategory, 1).get(0);
 		myLot.Unit_Price__c = unitPrice;
 		return myLot;
 	}
 	
-	public static Lot__c createLot(String productCategory, Decimal unitPrice, Integer lotSize) {
+	/* create a new lot with the given product category. */
+ public static Lot__c createLot(String productCategory, Decimal unitPrice, Integer lotSize) {
 		Lot__c myLot = createLots(productCategory, 1).get(0);
 		myLot.Unit_Price__c = unitPrice;
 		myLot.Lot_Size__c = lotSize;
@@ -136,11 +150,13 @@ public class TestDataFactory {
 	}
 	
 	
-	public static List<Lot__c> createLots(Integer howMany) {
+	/* Create a list of Lots with the given number of tests. */
+ public static List<Lot__c> createLots(Integer howMany) {
 		return createLots(TEST_LOT_CATEGORY, howMany);
 	}
 	
-	public static List<Lot__c> createLots(String categoryName, Integer howMany) {
+	/* createLots creates a list of lots with the given category name size and price. */
+ public static List<Lot__c> createLots(String categoryName, Integer howMany) {
 		howMany = (howMany!=null && howMany!=0) ? Math.abs(howMany) : 1;
 		List<Lot__c> lots = new List<Lot__c>();
 		for (Integer i=0; i<howMany; i++) {
@@ -155,7 +171,8 @@ public class TestDataFactory {
 		return lots;
 	}
 	
-	public static User createUser(String profile, String myAlias) {
+	/* Creates a new user in the database. */
+ public static User createUser(String profile, String myAlias) {
 		Profile p = [SELECT Id FROM Profile WHERE Name=:profile LIMIT 1][0];
 		String mail = myAlias + TEST_USER_EMAIL_POSTFIX; 
 		User myUser = new User(alias = myAlias, Email=mail, 
