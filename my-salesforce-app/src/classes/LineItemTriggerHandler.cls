@@ -70,7 +70,8 @@ public with sharing class LineItemTriggerHandler {
 			this.units = 0;
 		}
 		
-		public void addUnits(Decimal units) {
+		/* Add units. */
+  public void addUnits(Decimal units) {
 			this.units += units;
 		}
 		
